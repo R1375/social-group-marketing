@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
-import jwt as pyjwt  # Changed import
+import jwt  # Changed import
 from functools import wraps
 from flask_cors import CORS  # Add this import
 from db import create_app
@@ -43,15 +43,15 @@ def token_required(f):
                 return jsonify({'message': 'Invalid token type. Expected "Bearer"'}), 401
 
             # 解碼 token
-            data = pyjwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+            data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
             current_user = models.User.query.get(data['user_id'])
             
             if not current_user:
                 return jsonify({'message': 'User not found'}), 401
 
-        except pyjwt.ExpiredSignatureError:
+        except jwt.ExpiredSignatureError:
             return jsonify({'message': 'Token has expired'}), 401
-        except pyjwt.InvalidTokenError as e:
+        except jwt.InvalidTokenError as e:
             return jsonify({'message': f'Invalid token: {str(e)}'}), 401
         except Exception as e:
             return jsonify({'message': f'Error processing token: {str(e)}'}), 401
@@ -81,7 +81,7 @@ def login():
     user = models.User.query.filter_by(username=data['username']).first()
     
     if user and check_password_hash(user.password, data['password']):
-        token = pyjwt.encode({  # Changed from jwt.encode to pyjwt.encode
+        token = jwt.encode({  # Changed from jwt.encode to pyjwt.encode
             'user_id': user.id,
             'exp': datetime.utcnow() + timedelta(hours=24)
         }, app.config['SECRET_KEY'])
@@ -201,6 +201,6 @@ def get_rankings():
 
 if __name__ == '__main__': 
     if app:
-        app.run(debug=True)
+        app.run(host='0.0.0.0', debug=True)
     else:
         print("應用程序初始化失敗")
