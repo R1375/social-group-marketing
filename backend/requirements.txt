@@ -1,0 +1,43 @@
+# Web Framework
+fastapi==0.104.1
+uvicorn==0.24.0
+python-multipart==0.0.6
+
+# Database
+pymongo==4.6.0
+motor==3.3.1  # MongoDB 非同步驅動
+redis==5.0.1
+
+# Authentication
+python-jose==3.3.0  # JWT 處理
+passlib==1.7.4     # 密碼雜湊
+bcrypt==4.0.1      # 密碼加密
+
+# File Handling
+python-magic==0.4.27  # 檔案類型檢測
+Pillow==10.1.0       # 圖片處理
+
+# Queue and Background Tasks
+celery==5.3.4
+kombu==5.3.2
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.1        # 非同步 HTTP 客戶端
+locust==2.18.1       # 壓力測試
+
+# Monitoring
+prometheus-client==0.19.0
+opentelemetry-api==1.21.0
+opentelemetry-sdk==1.21.0
+
+# Utilities
+python-dotenv==1.0.0  # 環境變數管理
+pydantic==2.5.1      # 資料驗證
+boto3==1.29.3        # AWS SDK
+
+# Development Tools
+black==23.11.0       # 程式碼格式化
+flake8==6.1.0        # 程式碼檢查
+mypy==1.7.0          # 型別檢查
