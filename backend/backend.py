@@ -11,7 +11,13 @@ from models import init_models
 app, db = create_app()
 
 # Enable CORS for all routes
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000"]}})
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["http://104.199.254.153", "http://localhost:3000"],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Authorization", "Content-Type"]
+    }
+})
 
 if not app or not db:
     raise RuntimeError("無法初始化應用程序或數據庫連接")
