@@ -37,7 +37,7 @@ const MarketingApp = () => {
   useEffect(() => {
     if (isLoggedIn) {
       fetchRankings();
-      const interval = setInterval(fetchRankings, 30000); // 每30秒更新一次排名
+      const interval = setInterval(fetchRankings, 1000); // 每30秒更新一次排名
       return () => clearInterval(interval);
     }
   }, [isLoggedIn]);
